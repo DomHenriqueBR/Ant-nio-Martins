@@ -1,25 +1,20 @@
-let currentIndex = 0;
-const images = document.querySelectorAll('.carrossel img');
-const totalImages = images.length;
+document.addEventListener("DOMContentLoaded", () => {
+    const imagens = document.querySelectorAll(".carrossel figure img");
+    const btnAnterior = document.querySelector(".nav.anterior");
+    const btnProximo = document.querySelector(".nav.proximo");
+    let indiceAtual = 0;
+  
+    function mostrarImagem(indice) {
+      imagens.forEach((img) => img.classList.remove("active"));
+      imagens[indice].classList.add("active");
+    }
+  
+    function alternarImagem(direcao) {
+      indiceAtual = (indiceAtual + direcao + imagens.length) % imagens.length;
+      mostrarImagem(indiceAtual);
+    }
+    btnAnterior.addEventListener("click", () => alternarImagem(-1));
+    btnProximo.addEventListener("click", () => alternarImagem(1));
 
-function showImage() {
-    images.forEach((img, index) => {
-        img.style.display = 'none';
-    });
-    images[currentIndex].style.display = 'block';
-}
-
-function nextImage() {
-    currentIndex = (currentIndex + 1) % totalImages;
-    showImage();
-}
-
-function prevImage() {
-    currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-    showImage();
-}
-
-showImage();
-
-document.querySelector('.next').addEventListener('click', nextImage);
-document.querySelector('.prev').addEventListener('click', prevImage);
+  });
+  
